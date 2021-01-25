@@ -18,7 +18,7 @@ if(isset($_POST['delete']) == true){
 
   $staff_code = $_POST['staffcode'];
   header('Location:staff_delete.php?staffcode='.$staff_code);
-  exit();
+  exit()；
 }
 
 ?>
