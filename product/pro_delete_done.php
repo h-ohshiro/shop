@@ -9,7 +9,8 @@
   <?php
 
   try {
-    $staff_code = $_POST['code'];
+    $pro_code = $_POST['code'];
+    $pro_gazou_name = $_POST['gazou_name'];
 
     $dsn ='mysql:dbname=shop;host=localhost;charset=utf8';
     $user = 'root';
@@ -17,13 +18,16 @@
     $dbh = new PDO($dsn,$user,$password);
     $dbh -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    $sql = 'DELETE FROM mst_staff WHERE code=?';
+    $sql = 'DELETE FROM mst_product WHERE code=?';
     $stmt = $dbh->prepare($sql);
-
-    $data[] = $staff_code;
+    $data[] = $pro_code;
     $stmt->execute($data);
 
     $dbh = null;
+
+    if ($pro_gazou_name != '') {
+      unlink('./gazou/'.$pro_gazou_name);
+    }
 
   } catch (Exception $e) {
     print 'ただいま障害により大変ご迷惑をお掛けしております。';
@@ -34,7 +38,7 @@
   ?>
 削除しました。<br>
 <br>
-<a href="staff_list.php">戻る</a>
+<a href="pro_list.php">戻る</a>
 
 </body>
 </html>

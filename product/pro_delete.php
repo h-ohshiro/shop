@@ -10,7 +10,7 @@
 
   try {
 
-    $staff_code = $_GET['staffcode'];
+    $pro_code = $_GET['procode'];
 
     $dsn='mysql:dbname=shop;host=localhost;charset=utf8';
     $user='root';
@@ -18,15 +18,23 @@
     $dbh=new PDO($dsn,$user,$password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    $sql='SELECT name FROM mst_staff WHERE code=?';
+    $sql='SELECT name,price,gazou FROM mst_product WHERE code=?';
     $stmt=$dbh->prepare($sql);
-    $data[] = $staff_code;
+    $data[] = $pro_code;
     $stmt->execute($data);
 
     $rec=$stmt->fetch(PDO::FETCH_ASSOC);
-    $staff_name = $rec['name'];
+    $pro_name = $rec['name'];
+    $pro_price = $rec['price'];
+    $pro_gazou_name = $rec['gazou'];
 
     $dbh = null;
+
+    if ($pro_gazou_name == '') {
+      $pro_disp ='';
+    } else {
+      $pro_disp = '<img src ="./gazou/'.$pro_gazou_name.'">';
+    }
 
 
 
@@ -36,18 +44,25 @@
   }
 
 ?>
-スタッフ削除<br>
+商品削除<br>
 <br>
-スタッフコード<br>
-<?php print $staff_code;?>
+商品コード<br>
+<?php print $pro_code;?>
 <br>
-スタッフ名<br>
-<?php print $staff_name?>
+商品名<br>
+<?php print $pro_name?>
 <br>
-このスタッフを削除してよろしいですか<br>
+価格<br>
+<?php print $pro_price?>円
 <br>
-<form method="post" action="staff_delete_done.php">
-<input type="hidden" name="code" value="<?php print $staff_code;?>">
+商品画像<br>
+<?php print $pro_disp ?>
+<br>
+この商品を削除してよろしいですか<br>
+<br>
+<form method="post" action="pro_delete_done.php">
+<input type="hidden" name="code" value="<?php print $pro_code;?>">
+<input type="hidden" name="gazou_name" value="<?php print $pro_gazou_name; ?>">
 <input type="button" onclick="history.back()" value="戻る">
 <input type="submit" value="OK">
 </form>
