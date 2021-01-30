@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+session_regenerate_id(true);
+if (isset($_SESSION['login']) == false) {
+  print 'ログインされていません。';
+  print '<a href = "./staff_login.html">ログイン画面へ</a>';
+  exit();
+} else {
+  print $_SESSION['staff_name'];
+  print 'さんログイン中です。';
+  print '<br><br>';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -9,11 +25,12 @@
   <?php
 
   try {
-    $staff_name = $_POST['name'];
-    $staff_pass = $_POST['pass'];
+    require_once('../common/common.php');
 
-    $staff_name = htmlspecialchars($staff_name,ENT_QUOTES,'UTF-8');
-    $staff_pass = htmlspecialchars($staff_pass,ENT_QUOTES,'UTF-8');
+    $post = sanitize($_POST);
+
+    $staff_name = $post['name'];
+    $staff_pass = $post['pass'];
 
     $dsn ='mysql:dbname=shop;host=localhost;charset=utf8';
     $user = 'root';
