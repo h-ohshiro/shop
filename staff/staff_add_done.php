@@ -1,16 +1,16 @@
 <?php
 
-session_start();
-session_regenerate_id(true);
-if (isset($_SESSION['login']) == false) {
-  print 'ログインされていません。';
-  print '<a href = "./staff_login.html">ログイン画面へ</a>';
-  exit();
-} else {
-  print $_SESSION['staff_name'];
-  print 'さんログイン中です。';
-  print '<br><br>';
-}
+// session_start();
+// session_regenerate_id(true);
+// if (isset($_SESSION['login']) == false) {
+//   print 'ログインされていません。';
+//   print '<a href = "./staff_login.html">ログイン画面へ</a>';
+//   exit();
+// } else {
+//   print $_SESSION['staff_name'];
+//   print 'さんログイン中です。';
+//   print '<br><br>';
+// }
 
 ?>
 
@@ -25,12 +25,12 @@ if (isset($_SESSION['login']) == false) {
   <?php
 
   try {
-    require_once('../common/common.php');
+    // require_once('../common/common.php');
 
-    $post = sanitize($_POST);
+    // $post = sanitize($_POST);
 
-    $staff_name = $post['name'];
-    $staff_pass = $post['pass'];
+    $staff_name = $_POST['name'];
+    $staff_pass = $_POST['pass'];
 
     $dsn ='mysql:dbname=shop;host=localhost;charset=utf8';
     $user = 'root';
