@@ -1,7 +1,7 @@
 <?php
 session_start();
 session_regenerate_id(true);
-if(isset($_SESSION['member_login'])==false)
+if(isset($_SESSION['login'])==false)
 {
 	print 'ようこそゲスト様　';
 	print '<a href="member_login.html">会員ログイン</a><br />';

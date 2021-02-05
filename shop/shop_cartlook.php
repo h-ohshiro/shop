@@ -1,7 +1,7 @@
 <?php
 session_start();
 session_regenerate_id(true);
-if(isset($_SESSION['member_login'])==false)
+if(isset($_SESSION['login'])==false)
 {
 	print 'ようこそゲスト様　';
 	print '<a href="member_login.html">会員ログイン</a><br />';
@@ -114,5 +114,11 @@ catch(Exception $e)
 </form>
 <br>
 <a href="shop_form.html">ご購入手続きへ進む</a><br>
+
+<?php
+	if (isset($_SESSION["login"])==true) {
+		print '<a href="shop_kantan_check.php">会員かんたん注文へ進む</a><br>';
+	}
+?>
 </body>
 </html>
